@@ -1,21 +1,47 @@
-import { Mail } from 'lucide-react';
-import { ExternalLink } from 'lucide-react';
+import { useState } from 'react';
 import { projects } from '../data/projectsData';
+import { ExternalLink } from 'lucide-react';
 
 export default function Projects() {
+  const [activeFilter, setActiveFilter] = useState('All');
+
+  const categories = ['All', ...new Set(projects.map((p) => p.category))];
+
+  const filteredProjects = activeFilter === 'All' 
+    ? projects 
+    : projects.filter((p) => p.category === activeFilter);
+
   return (
     <section id="projects" className="py-20 bg-slate-900 text-slate-100 px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight mb-3">Featured Projects</h2>
           <p className="text-slate-400 max-w-lg mx-auto">
-            A showcase of full-stack web applications, e-commerce architectures, and frontend interfaces I've built.
+            A showcase of full-stack web applications, e-commerce architectures, and frontend interfaces.
           </p>
         </div>
 
+        {/* Filter Buttons */}
+        <div className="flex flex-wrap justify-center gap-2 mb-12">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveFilter(cat)}
+              className={`px-4 py-2 rounded-full text-xs font-semibold transition ${
+                activeFilter === cat 
+                  ? 'bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/20' 
+                  : 'bg-slate-950 text-slate-300 border border-slate-800 hover:border-emerald-500/50'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Project Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <div key={project.id} className="bg-slate-950/80 border border-slate-800 rounded-xl overflow-hidden flex flex-col justify-between hover:border-emerald-500/50 transition group">
+          {filteredProjects.map((project) => (
+            <div key={project.id} className="bg-slate-950/80 border border-slate-800 rounded-xl overflow-hidden flex flex-col justify-between hover:border-emerald-500/50 transition group hover:-translate-y-1 duration-300">
               <div className="p-6">
                 <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">{project.category}</span>
                 <h3 className="text-xl font-bold mt-2 mb-3 group-hover:text-emerald-400 transition">{project.title}</h3>

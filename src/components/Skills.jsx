@@ -1,4 +1,3 @@
-import React from 'react';
 import { skills } from '../data/projectsData';
 import { Code, Server, Layout, Wrench } from 'lucide-react';
 
