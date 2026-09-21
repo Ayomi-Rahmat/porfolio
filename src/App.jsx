@@ -2,7 +2,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
-import Contact from './common/../components/Contact'; // or './components/Contact'
+import Contact from './components/Contact'; // or './components/Contact'
 
 export default function App() {
   return (

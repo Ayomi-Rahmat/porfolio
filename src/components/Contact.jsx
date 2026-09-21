@@ -1,32 +1,81 @@
-import { Mail } from 'lucide-react';
+import { useState } from 'react';
+import emailjs from '@emailjs/browser';
+import { Send, CheckCircle } from 'lucide-react';
 
 export default function Contact() {
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setStatus('sending');
+
+    // Replace these with your actual EmailJS service ID, template ID, and public key later
+    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData, 'YOUR_PUBLIC_KEY')
+      .then(() => {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      })
+      .catch(() => setStatus('error'));
+  };
+
   return (
     <section id="contact" className="py-20 bg-slate-950 text-slate-100 px-6">
-      <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl font-bold tracking-tight mb-3">Get In Touch</h2>
-        <p className="text-slate-400 max-w-lg mx-auto mb-10">
-          Have an exciting project idea, collaboration, or opportunity? Let's connect and build something amazing together!
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-6 mb-12">
-          <a href="mailto:your-email@example.com" className="flex items-center gap-3 bg-slate-900 border border-slate-800 hover:border-emerald-500/50 px-6 py-3 rounded-xl transition text-slate-300 hover:text-emerald-400">
-            <Mail size={20} className="text-emerald-400" />
-            <span>rahmatopoola9@gmail.com</span>
-          </a>
-          <a href="https://www.linkedin.com/in/rahmat-opoola-ba6801263/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 bg-slate-900 border border-slate-800 hover:border-emerald-500/50 px-6 py-3 rounded-xl transition text-slate-300 hover:text-emerald-400">
-            <svg className="w-5 h-5 fill-emerald-400" viewBox="0 0 24 24">
-              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.38-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-            </svg>
-            <span>LinkedIn Profile</span>
-          </a>
-          <a href="https://github.com/Ayomi-Rahmat" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 bg-slate-900 border border-slate-800 hover:border-emerald-500/50 px-6 py-3 rounded-xl transition text-slate-300 hover:text-emerald-400">
-            <svg className="w-5 h-5 fill-emerald-400" viewBox="0 0 24 24">
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-            </svg>
-            <span>GitHub Profile</span>
-          </a>
+      <div className="max-w-3xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold tracking-tight mb-3">Get In Touch</h2>
+          <p className="text-slate-400 max-w-lg mx-auto">
+            Have an exciting project idea, collaboration, or opportunity? Send a message directly to my inbox!
+          </p>
         </div>
+
+        <form onSubmit={handleSubmit} className="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-xl space-y-6">
+          <div>
+            <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Your Name</label>
+            <input 
+              type="text" 
+              required
+              value={formData.name}
+              onChange={(e) => setFormData({...formData, name: e.target.value})}
+              className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-emerald-500 transition"
+              placeholder="Jane Doe"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Your Email</label>
+            <input 
+              type="email" 
+              required
+              value={formData.email}
+              onChange={(e) => setFormData({...formData, email: e.target.value})}
+              className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-emerald-500 transition"
+              placeholder="jane@example.com"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Message</label>
+            <textarea 
+              rows="4" 
+              required
+              value={formData.message}
+              onChange={(e) => setFormData({...formData, message: e.target.value})}
+              className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-emerald-500 transition resize-none"
+              placeholder="Let's talk about..."
+            ></textarea>
+          </div>
+
+          <button 
+            type="submit" 
+            disabled={status === 'sending'}
+            className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 px-6 rounded-lg transition flex items-center justify-center gap-2 cursor-pointer"
+          >
+            {status === 'sending' ? 'Sending...' : status === 'success' ? <><CheckCircle size={18} /> Message Sent!</> : <><Send size={18} /> Send Message</>}
+          </button>
+          
+          {status === 'error' && (
+            <p className="text-red-400 text-xs text-center">Failed to send message. Please try emailing directly.</p>
+          )}
+        </form>
       </div>
     </section>
   );
