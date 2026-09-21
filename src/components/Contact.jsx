@@ -11,7 +11,7 @@ export default function Contact() {
     setStatus('sending');
 
     // Replace these with your actual EmailJS service ID, template ID, and public key later
-    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData, 'YOUR_PUBLIC_KEY')
+    emailjs.send('service_8jfh3rd', 'template_jvu6qpj', formData, 'QgY78sm4KPyZiGxkF')
       .then(() => {
         setStatus('success');
         setFormData({ name: '', email: '', message: '' });
