@@ -17,8 +17,8 @@ export const projects = [
     category: "Frontend & UI Design",
     description: "A responsive web interface and pitch presentation built for a waste-recycling initiative focused on sustainability, optimized for user engagement and accessibility.",
     techStack: ["React", "React Router", "Tailwind CSS", "Vite"],
-    githubUrl: "https://github.com/Ayomi-Rahmat",
-    liveUrl: "https://github.com/Ayomi-Rahmat",
+    githubUrl: "https://github.com/Eco-Bridge/Ecobridge-frontend",
+    liveUrl: "https://ecobridge-frontend-sigma.vercel.app/",
     featured: true,
   },
   {
